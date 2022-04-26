@@ -7,6 +7,10 @@ public class Main {
         List<TranslateStrategy> translateStrategyList = List.of(new EnTranslatorImpl(), new FRTranslatorImpl(), new JATranslatorImpl(), new VNTranslatorImpl(), new ESTranslatorImpl());
         TranslateService translateService = new TranslateServiceImpl(translateStrategyList);
         List<String> languages = List.of("en", "fr", "ja", "vn", "es");
-        languages.forEach(s -> System.out.println(translateService.sayHello(s)));
+        languages.forEach(s -> printIt(translateService, s));
+    }
+
+    private static void printIt(TranslateService translateService, String s) {
+        System.out.println(translateService.sayHello(s));
     }
 }
