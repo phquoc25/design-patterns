@@ -1,5 +1,8 @@
 package colleaguesimulator;
 
+import com.beust.jcommander.JCommander;
+import com.beust.jcommander.Parameter;
+
 import java.util.*;
 import java.util.stream.IntStream;
 
@@ -17,10 +20,18 @@ public class ColleagueSimulator {
             new Position(48.833848, 2.316777),
             new Position(48.842012, 2.308060)
     );
-    public static void main(String[] args) {
-        int nbOfColleague = 10;
+    @Parameter(names = "--file", description = "property file path")
+    private String propertyFile;
 
-        List<Colleague> colleagues = IntStream.range(0, nbOfColleague).mapToObj(operand -> buildColleague()).toList();
+    public static void main(String[] args) {
+        var simulator = new ColleagueSimulator();
+        JCommander.newBuilder().addObject(simulator).build().parse(args);
+        simulator.run();
+    }
+
+    public void run() {
+        System.out.println(propertyFile);
+        List<Colleague> colleagues = IntStream.range(0, 10).mapToObj(operand -> buildColleague()).toList();
         var timer = new Timer();
         timer.schedule(new TimerTask() {
             @Override
